@@ -1,0 +1,83 @@
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+  darkMode: 'class',
+  theme: {
+    extend: {
+      colors: {
+        brand: {
+          50:  '#f0f0ff',
+          100: '#e0e0ff',
+          200: '#c7c7ff',
+          300: '#a5a5ff',
+          400: '#8080ff',
+          500: '#6366f1', // primary indigo
+          600: '#4f46e5',
+          700: '#4338ca',
+          800: '#3730a3',
+          900: '#312e81',
+          950: '#1e1b4b',
+        },
+        violet: {
+          400: '#a78bfa',
+          500: '#8b5cf6',
+          600: '#7c3aed',
+        },
+        mood: {
+          happy:    '#f59e0b',
+          sad:      '#60a5fa',
+          stressed: '#f87171',
+          relaxed:  '#34d399',
+          neutral:  '#94a3b8',
+        },
+      },
+      fontFamily: {
+        sans: ['Inter', 'system-ui', 'sans-serif'],
+      },
+      backgroundImage: {
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+        'gradient-conic':  'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))',
+        'mesh-happy':    'radial-gradient(at 0% 0%, #fde68a 0, transparent 50%), radial-gradient(at 100% 100%, #fbbf24 0, transparent 50%)',
+        'mesh-sad':      'radial-gradient(at 0% 0%, #bfdbfe 0, transparent 50%), radial-gradient(at 100% 100%, #60a5fa 0, transparent 50%)',
+        'mesh-stressed': 'radial-gradient(at 0% 0%, #fecaca 0, transparent 50%), radial-gradient(at 100% 100%, #f87171 0, transparent 50%)',
+        'mesh-relaxed':  'radial-gradient(at 0% 0%, #a7f3d0 0, transparent 50%), radial-gradient(at 100% 100%, #34d399 0, transparent 50%)',
+        'mesh-neutral':  'radial-gradient(at 0% 0%, #e2e8f0 0, transparent 50%), radial-gradient(at 100% 100%, #94a3b8 0, transparent 50%)',
+      },
+      boxShadow: {
+        'glow-brand':   '0 0 24px rgba(99,102,241,0.35)',
+        'glow-happy':   '0 0 24px rgba(245,158,11,0.35)',
+        'glow-sad':     '0 0 24px rgba(96,165,250,0.35)',
+        'glow-relaxed': '0 0 24px rgba(52,211,153,0.35)',
+        'glow-stressed':'0 0 24px rgba(248,113,113,0.35)',
+        'glass':        '0 8px 32px rgba(0,0,0,0.10)',
+        'glass-dark':   '0 8px 32px rgba(0,0,0,0.40)',
+        'card':         '0 2px 16px rgba(99,102,241,0.07)',
+      },
+      animation: {
+        'fade-in':      'fadeIn 0.4s ease-in-out',
+        'slide-up':     'slideUp 0.4s ease-out',
+        'slide-in-right':'slideInRight 0.3s ease-out',
+        'pulse-slow':   'pulse 3s infinite',
+        'float':        'float 6s ease-in-out infinite',
+        'float-slow':   'float 9s ease-in-out infinite',
+        'shimmer':      'shimmer 2s linear infinite',
+        'orb':          'orb 8s ease-in-out infinite',
+        'glow-pulse':   'glowPulse 2s ease-in-out infinite',
+        'spin-slow':    'spin 8s linear infinite',
+        'bounce-slow':  'bounce 3s infinite',
+        'typing':       'typingBounce 1.2s infinite ease-in-out',
+      },
+      keyframes: {
+        fadeIn:       { from: { opacity: '0' },                                     to: { opacity: '1' } },
+        slideUp:      { from: { transform: 'translateY(16px)', opacity: '0' },      to: { transform: 'translateY(0)', opacity: '1' } },
+        slideInRight: { from: { transform: 'translateX(16px)', opacity: '0' },      to: { transform: 'translateX(0)', opacity: '1' } },
+        float:        { '0%,100%': { transform: 'translateY(0)' },                  '50%': { transform: 'translateY(-14px)' } },
+        shimmer:      { from: { backgroundPosition: '-200% 0' },                    to: { backgroundPosition: '200% 0' } },
+        orb:          { '0%,100%': { transform: 'translate(0,0) scale(1)' },        '33%': { transform: 'translate(30px,-20px) scale(1.1)' }, '66%': { transform: 'translate(-20px,10px) scale(0.95)' } },
+        glowPulse:    { '0%,100%': { opacity: '0.6', transform: 'scale(1)' },       '50%': { opacity: '1', transform: 'scale(1.04)' } },
+        typingBounce: { '0%,80%,100%': { transform: 'translateY(0)' },             '40%': { transform: 'translateY(-8px)' } },
+      },
+    },
+  },
+  plugins: [],
+}
