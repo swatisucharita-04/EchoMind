@@ -81,12 +81,12 @@ export default function App() {
 
       {/* Protected – full-screen immersive layout (no sidebar) */}
       <Route element={<RequireAuth><ImmersiveLayout /></RequireAuth>}>
-        <Route path="/mood-check" element={<Suspense fallback={<PageLoader />}><MoodInputPage /></Suspense>} />
+        <Route path="/dashboard" element={<Suspense fallback={<PageLoader />}><MoodInputPage /></Suspense>} />
       </Route>
 
       {/* Protected – standard app layout with sidebar */}
       <Route element={<RequireAuth><AppLayout /></RequireAuth>}>
-        <Route path="/dashboard"  element={<Suspense fallback={<PageLoader />}><DashboardPage /></Suspense>} />
+        <Route path="/overview"   element={<Suspense fallback={<PageLoader />}><DashboardPage /></Suspense>} />
         <Route path="/chat"       element={<Suspense fallback={<PageLoader />}><ChatPage /></Suspense>} />
         <Route path="/journal"    element={<Suspense fallback={<PageLoader />}><JournalPage /></Suspense>} />
         <Route path="/analytics"  element={<Suspense fallback={<PageLoader />}><AnalyticsPage /></Suspense>} />

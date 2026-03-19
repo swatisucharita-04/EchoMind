@@ -21,17 +21,17 @@ export default function ImmersiveLayout() {
       {/* Full-screen mood gradient */}
       <MoodBackground mood={currentMood} />
 
-      {/* Top-left: back to dashboard */}
+      {/* Top-left: back to overview */}
       <div className="absolute top-5 left-5 z-20">
         <Link
-          to="/dashboard"
+          to="/overview"
           className="flex items-center gap-2 px-3.5 py-2 rounded-xl
             bg-white/10 hover:bg-white/20 border border-white/20
             text-white/80 hover:text-white text-xs font-medium
             backdrop-blur-sm transition-colors duration-150"
         >
           <LayoutDashboard className="w-3.5 h-3.5" />
-          Dashboard
+          Overview
         </Link>
       </div>
 

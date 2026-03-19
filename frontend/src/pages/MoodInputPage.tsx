@@ -154,10 +154,10 @@ export default function MoodInputPage() {
             <motion.div key="pick" {...PAGE_V} className="space-y-6">
               <div className="text-center space-y-2">
                 <h1 className="text-3xl font-bold text-white tracking-tight">
-                  How are you feeling?
+                  How's your energy right now?
                 </h1>
                 <p className="text-white/60 text-sm">
-                  Pick the emotion closest to how you feel right now
+                  Tap the vibe that fits best
                 </p>
               </div>
 
@@ -185,7 +185,7 @@ export default function MoodInputPage() {
               </GlassCard>
 
               <p className="text-center text-white/30 text-xs">
-                Your response stays private and is never shared
+                Just between you and AI ✨
               </p>
             </motion.div>
           )}
@@ -196,20 +196,20 @@ export default function MoodInputPage() {
               <div className="text-center space-y-1.5">
                 <span className="text-5xl">{meta?.emoji}</span>
                 <h2 className="text-2xl font-bold text-white mt-2">
-                  Feeling {meta?.label}
+                  {meta?.label} vibes
                 </h2>
                 <p className="text-white/60 text-sm">{meta?.desc}</p>
               </div>
 
               <GlassCard padding="md" full>
                 <p className="text-white/70 text-xs font-medium mb-2.5">
-                  Want to share what's on your mind? <span className="text-white/40">(optional)</span>
+                  Want to unpack that? <span className="text-white/40">(totally optional)</span>
                 </p>
                 <textarea
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                   onKeyDown={(e) => { if (e.key === 'Enter' && e.metaKey) submit() }}
-                  placeholder={`What's making you feel ${meta?.label.toLowerCase()}?`}
+                  placeholder={`What's on your mind? Spill as much or as little as you want...`}
                   rows={4}
                   autoFocus
                   className="w-full bg-white/5 border border-white/15 rounded-xl
@@ -226,7 +226,7 @@ export default function MoodInputPage() {
                     size="sm"
                   />
                   <span className="text-white/40 text-xs flex-1">
-                    {isRecording ? 'Listening…' : 'Hold to dictate · ⌘↵ to submit'}
+                    {isRecording ? 'Listening…' : 'Hold to vent · ⌘↵ to submit'}
                   </span>
                   <button
                     onClick={submit}
@@ -238,7 +238,7 @@ export default function MoodInputPage() {
                   >
                     {loading
                       ? <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                      : <><span>Get insights</span><ArrowRight className="w-4 h-4" /></>
+                      : <><span>Explore insights</span><ArrowRight className="w-4 h-4" /></>
                     }
                   </button>
                 </div>
@@ -249,7 +249,7 @@ export default function MoodInputPage() {
                 className="mx-auto block text-white/40 hover:text-white/70
                   text-xs transition-colors duration-150"
               >
-                ← Change mood
+                ← Wait, change vibe
               </button>
             </motion.div>
           )}
@@ -258,8 +258,8 @@ export default function MoodInputPage() {
           {phase === 'result' && result && (
             <motion.div key="result" {...PAGE_V} className="space-y-4 w-full max-w-md">
               <div className="text-center space-y-1">
-                <h2 className="text-2xl font-bold text-white">Here's what I found</h2>
-                <p className="text-white/50 text-sm">Based on how you're feeling</p>
+                <h2 className="text-2xl font-bold text-white">Here's something for you</h2>
+                <p className="text-white/50 text-sm">Curated for your current energy</p>
               </div>
 
               {/* AI reply */}

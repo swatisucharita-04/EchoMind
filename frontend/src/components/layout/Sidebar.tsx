@@ -8,8 +8,8 @@ import {
 import MoodBadge from '@/components/mood/MoodBadge'
 
 const NAV = [
-  { to: '/dashboard',   icon: LayoutDashboard, label: 'Dashboard'       },
-  { to: '/mood-check',  icon: Sparkles,         label: 'Mood Check-in'  },
+  { to: '/dashboard',   icon: Sparkles,         label: 'Mood Check-in'  },
+  { to: '/overview',    icon: LayoutDashboard,  label: 'Overview'       },
   { to: '/chat',        icon: MessageCircle,    label: 'AI Chat'        },
   { to: '/journal',     icon: BookOpen,         label: 'Journal'        },
   { to: '/analytics',   icon: BarChart3,        label: 'Analytics'      },

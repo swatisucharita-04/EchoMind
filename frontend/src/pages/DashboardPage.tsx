@@ -66,7 +66,7 @@ export default function DashboardPage() {
             {new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
           </p>
         </div>
-        <Link to="/mood-check" className="btn-primary gap-1.5">
+        <Link to="/dashboard" className="btn-primary gap-1.5">
           <Sparkles className="w-4 h-4" />
           Check in
         </Link>
