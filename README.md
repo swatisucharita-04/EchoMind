@@ -10,7 +10,6 @@
 | AI Chat     | Gemini 2.5 Flash                      |
 | TTS         | Murf API                              |
 | Music       | Spotify Web API                       |
-| Container   | Docker + Docker Compose + Nginx       |
 
 ---
 
@@ -28,7 +27,6 @@ echomind/
 │   │   ├── services/         AI, TTS, Spotify, User, Conversation business logic
 │   │   ├── config.py         pydantic-settings (reads .env)
 │   │   └── main.py           App factory
-│   ├── Dockerfile
 │   └── requirements.txt
 ├── frontend/                 React + Vite
 │   ├── src/
@@ -41,10 +39,7 @@ echomind/
 │   │   ├── lib/              moodUtils
 │   │   ├── App.tsx           Router + Clerk auth guards
 │   │   └── main.tsx          Clerk + React Query providers
-│   ├── Dockerfile            Multi-stage (Vite build → Nginx)
-│   └── nginx.conf            SPA routing + API proxy
-├── supabase_schema.sql       Run once in Supabase SQL editor
-└── docker-compose.yml        Full stack orchestration
+└── supabase_schema.sql       Run once in Supabase SQL editor
 ```
 
 ---
@@ -131,30 +126,6 @@ App available at: `http://localhost:5173`
 
 ---
 
-## Step 5 — Docker Production Deployment
-
-```bash
-# Copy and fill in env files
-cp backend/.env.example backend/.env
-cp frontend/.env.example frontend/.env
-
-# Build and start all services
-docker compose up -d --build
-
-# Run DB migrations inside the container
-docker compose exec backend alembic upgrade head
-
-# Check logs
-docker compose logs -f backend
-docker compose logs -f frontend
-```
-
-Services:
-- Frontend → `http://localhost:80`
-- Backend API → `http://localhost:8000`
-- Backend docs → `http://localhost:8000/docs` (dev only)
-
----
 
 ## Step 6 — Deploy to Production (Render / Railway / Fly.io)
 
