@@ -26,7 +26,7 @@ class Settings(BaseSettings):
     CLERK_JWKS_URL: str = ""
 
     # Gemini
-    GEMINI_API_KEY: str = ""
+    GOOGLE_API_KEY: str = ""
 
     # Murf
     MURF_API_KEY: str = ""

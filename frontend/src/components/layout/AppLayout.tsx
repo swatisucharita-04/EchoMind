@@ -8,7 +8,7 @@ export default function AppLayout() {
   const { sidebarOpen, currentMood } = useUIStore()
 
   return (
-    <div className="flex h-screen overflow-hidden bg-gray-50 dark:bg-gray-950 relative">
+    <div className="flex h-screen overflow-hidden bg-transparent relative">
       {/* Mood-aware animated background */}
       <AnimatedBackground mood={currentMood} />
 

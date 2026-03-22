@@ -68,8 +68,8 @@ function resolveNudge(
       icon: TrendingUp,
       iconColor: 'text-emerald-600',
       bg: 'bg-emerald-50 dark:bg-emerald-900/20 border-emerald-100 dark:border-emerald-800',
-      heading: "Keep the streak going",
-      body: "You haven't journaled in a while. Even a quick note helps EchoMind understand your patterns better.",
+      heading: "Start your writing habit",
+      body: "You haven't journaled recently. Even a quick note helps EchoMind understand your patterns better.",
       cta: "Write an entry",
       to: '/journal',
     }

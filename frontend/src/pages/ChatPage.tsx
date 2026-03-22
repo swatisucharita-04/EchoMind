@@ -7,6 +7,7 @@ import { ttsApi } from '@/api/client'
 import MoodBadge from '@/components/mood/MoodBadge'
 import VoiceButton from '@/components/common/VoiceButton'
 import SpotifyPlayer from '@/components/dashboard/SpotifyPlayer'
+import ChatInput from '@/components/chat/ChatInput'
 import { Volume2, RefreshCw } from 'lucide-react'
 import toast from 'react-hot-toast'
 
@@ -22,30 +23,20 @@ const SUGGESTIONS = [
 
 export default function ChatPage() {
   const { messages, isTyping, isConnected, sendMessage, clearMessages } = useChat()
-  const [input, setInput] = useState('')
   const [loadingAudio, setLoadingAudio] = useState<string | null>(null)
   const bottomRef = useRef<HTMLDivElement>(null)
-  const inputRef  = useRef<HTMLTextAreaElement>(null)
-
-  const { isRecording, startRecording, stopRecording } = useVoice({
-    onTranscript: (text) => setInput(text),
-  })
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages, isTyping])
 
-  function handleSend() {
-    const text = input.trim()
+  function handleSend(text: string) {
     if (!text || !isConnected) return
     sendMessage(text)
-    setInput('')
-    inputRef.current?.focus()
   }
 
   function handleChip(text: string) {
     sendMessage(text)
-    inputRef.current?.focus()
   }
 
   async function playTTS(messageId: string, text: string) {
@@ -110,8 +101,10 @@ export default function ChatPage() {
               {/* Suggestion chips */}
               <div className="flex flex-wrap justify-center gap-2 max-w-sm">
                 {SUGGESTIONS.map((s) => (
-                  <button
+                  <motion.button
                     key={s}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
                     onClick={() => handleChip(s)}
                     className="px-3 py-1.5 text-xs rounded-full border border-gray-200 dark:border-gray-700
                       text-gray-600 dark:text-gray-300 bg-white dark:bg-gray-800
@@ -119,7 +112,7 @@ export default function ChatPage() {
                       transition-colors duration-150"
                   >
                     {s}
-                  </button>
+                  </motion.button>
                 ))}
               </div>
             </div>
@@ -183,10 +176,13 @@ export default function ChatPage() {
             <div className="flex gap-2.5 items-center">
               <div className="w-7 h-7 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center text-sm flex-shrink-0">🧠</div>
               <div className="bg-gray-50 dark:bg-gray-800 px-4 py-2.5 rounded-2xl rounded-tl-sm border border-gray-100 dark:border-gray-700">
-                <div className="flex gap-1">
-                  <span className="typing-dot" />
-                  <span className="typing-dot" />
-                  <span className="typing-dot" />
+                <div className="flex items-center gap-2">
+                  <span className="text-xs font-medium text-gray-500 dark:text-gray-400">EchoMind is thinking</span>
+                  <div className="flex gap-1 pb-1">
+                    <span className="typing-dot" />
+                    <span className="typing-dot" />
+                    <span className="typing-dot" />
+                  </div>
                 </div>
               </div>
             </div>
@@ -195,38 +191,7 @@ export default function ChatPage() {
           <div ref={bottomRef} />
         </div>
 
-        {/* Input bar */}
-        <div className="px-4 py-3.5 border-t border-gray-100 dark:border-gray-800 flex-shrink-0">
-          <div className="flex items-end gap-2">
-            <VoiceButton
-              isRecording={isRecording}
-              onMouseDown={startRecording}
-              onMouseUp={stopRecording}
-              size="sm"
-            />
-            <textarea
-              ref={inputRef}
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); handleSend() }
-              }}
-              placeholder="Type a message… (Enter to send)"
-              rows={1}
-              className="input resize-none flex-1 max-h-32 py-2.5"
-            />
-            <button
-              onClick={handleSend}
-              disabled={!input.trim() || !isConnected}
-              className="btn-primary flex-shrink-0 py-2.5 px-3.5 rounded-xl"
-            >
-              <Send className="w-4 h-4" />
-            </button>
-          </div>
-          <p className="text-[10px] text-gray-400 text-center mt-2">
-            EchoMind is an AI companion, not a licensed therapist.
-          </p>
-        </div>
+        <ChatInput isConnected={isConnected} onSend={handleSend} />
       </div>
 
       {/* ── Sidebar ── */}

@@ -69,7 +69,7 @@ Be specific to the data, not generic.
 
 class AIService:
     def __init__(self):
-        self.client = genai.Client(api_key=settings.GEMINI_API_KEY)
+        self.client = genai.Client(api_key=settings.GOOGLE_API_KEY)
         self.model = "gemini-2.5-flash"
 
     async def classify_mood(self, message: str) -> MoodAnalysis:
@@ -94,7 +94,10 @@ class AIService:
             )
         except Exception as e:
             logger.exception(f"Gemini mood classification failed: {e}")
-            raise AIServiceError("Gemini", str(e))
+            return MoodAnalysis(
+                mood="neutral", emotion="calm", confidence=0.5,
+                mood_score=5, reasoning="Defaulted due to AI service offline."
+            )
 
     async def generate_response(
         self,
@@ -124,7 +127,7 @@ class AIService:
             return response.text.strip()
         except Exception as e:
             logger.exception(f"Gemini response generation failed: {e}")
-            raise AIServiceError("Gemini", str(e))
+            return "I'm having a little trouble connecting to my AI core right now, but I'm here for you. How are you feeling?"
 
     async def generate_journal_insight(self, content: str) -> str:
         """Generate AI insight for a journal entry."""

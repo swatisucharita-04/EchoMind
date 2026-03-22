@@ -21,6 +21,11 @@ limiter = Limiter(key_func=get_remote_address)
 async def lifespan(app: FastAPI):
     logger.info(f"🚀 EchoMind API starting — env={settings.APP_ENV}")
     os.makedirs("static/audio", exist_ok=True)
+    
+    from app.db.base import engine
+    from app.models.models import Base
+    async with engine.begin() as conn:
+        await conn.run_sync(Base.metadata.create_all)
     yield
     logger.info("🛑 EchoMind API shutting down")
 

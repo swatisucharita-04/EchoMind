@@ -74,9 +74,13 @@ export default function AnalyticsPage() {
             {[...Array(5)].map((_, i) => <div key={i} className="skeleton h-12 rounded-xl" />)}
           </div>
         ) : moodHistory.length === 0 ? (
-          <div className="py-14 text-center">
-            <div className="text-4xl mb-3">📊</div>
-            <p className="text-sm text-gray-400">No mood data yet. Start a chat to begin tracking.</p>
+          <div className="py-20 text-center relative overflow-hidden flex flex-col items-center justify-center border-t border-white/5">
+             <div className="absolute inset-0 flex items-end justify-center opacity-[0.25] dark:opacity-[0.15] pointer-events-none blur-sm select-none">
+               <svg viewBox="0 0 100 30" preserveAspectRatio="none" className="w-[120%] h-24 text-brand-500 fill-current"><path d="M0,30 L0,15 C20,15 30,5 50,20 C70,35 80,10 100,5 L100,30 Z" /></svg>
+             </div>
+             <p className="text-4xl mb-4 relative z-10">📊</p>
+             <p className="font-semibold text-gray-800 dark:text-gray-200 relative z-10 text-base">Start tracking your mood to unlock insights</p>
+             <p className="text-sm text-gray-500 dark:text-gray-400 mt-1.5 relative z-10">Log your daily vibes to see emotional trends</p>
           </div>
         ) : (
           <div className="divide-y divide-white/5 dark:divide-white/5">

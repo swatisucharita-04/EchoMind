@@ -15,13 +15,15 @@ elif _db_url.startswith("postgres://"):
     # Heroku / Supabase sometimes emit postgres:// shorthand
     _db_url = _db_url.replace("postgres://", "postgresql+asyncpg://", 1)
 
-engine = create_async_engine(
-    _db_url,
-    echo=not settings.is_production,
-    pool_size=10,
-    max_overflow=20,
-    pool_pre_ping=True,
-)
+kwargs = {
+    "echo": not settings.is_production,
+    "pool_pre_ping": True,
+}
+if "sqlite" not in _db_url:
+    kwargs["pool_size"] = 10
+    kwargs["max_overflow"] = 20
+
+engine = create_async_engine(_db_url, **kwargs)
 
 AsyncSessionLocal = async_sessionmaker(
     engine,

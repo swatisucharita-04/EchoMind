@@ -154,10 +154,10 @@ export default function MoodInputPage() {
             <motion.div key="pick" {...PAGE_V} className="space-y-6">
               <div className="text-center space-y-2">
                 <h1 className="text-3xl font-bold text-white tracking-tight">
-                  How's your energy right now?
+                  How are you really feeling right now?
                 </h1>
-                <p className="text-white/60 text-sm">
-                  Tap the vibe that fits best
+                <p className="text-white/60 text-sm mt-1">
+                  Take a breath and tap the vibe that fits best
                 </p>
               </div>
 

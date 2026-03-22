@@ -188,10 +188,11 @@ export default function JournalPage() {
           ))}
         </div>
       ) : entries.length === 0 ? (
-        <div className="glass-card p-14 text-center">
-          <div className="text-5xl mb-3">📓</div>
-          <p className="font-semibold text-gray-700 dark:text-gray-300">No entries yet</p>
-          <p className="text-sm text-gray-400 mt-1">Write your first journal entry above</p>
+        <div className="glass-card p-14 text-center max-w-sm mx-auto relative overflow-hidden group hover:shadow-glass-hover transition-all duration-300">
+          <div className="absolute inset-0 bg-gradient-to-br from-brand-500/5 to-violet-500/5 blur-xl group-hover:from-brand-500/10 group-hover:to-violet-500/10 transition-colors duration-500" />
+          <div className="text-4xl mb-4 relative z-10 transition-transform duration-300 group-hover:-translate-y-1">✍️</div>
+          <p className="font-semibold text-gray-800 dark:text-gray-200 relative z-10 text-lg">Your thoughts deserve a space.</p>
+          <p className="text-sm text-gray-500 dark:text-gray-400 mt-2 relative z-10">Start your first entry — even one line is enough.</p>
         </div>
       ) : (
         <div className="space-y-4">

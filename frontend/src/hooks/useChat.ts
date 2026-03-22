@@ -18,22 +18,35 @@ export function useChat(sessionId?: string) {
   const [isTyping, setIsTyping] = useState(false)
   const [isConnected, setIsConnected] = useState(false)
   const [activeSessionId, setActiveSessionId] = useState(sessionId ?? makeLocalId())
+  const initialSessionIdRef = useRef(activeSessionId)
   const wsRef = useRef<WebSocket | null>(null)
   const pingRef = useRef<ReturnType<typeof setInterval> | null>(null)
   const setCurrentMood = useUIStore((s) => s.setCurrentMood)
+  const isConnectingRef = useRef(false)
+  const isMountedRef = useRef(true)
+
+  useEffect(() => {
+    isMountedRef.current = true
+    return () => { isMountedRef.current = false }
+  }, [])
 
   const connect = useCallback(async () => {
-    if (wsRef.current?.readyState === WebSocket.OPEN) return
+    if (wsRef.current?.readyState === WebSocket.OPEN || isConnectingRef.current) return
+    isConnectingRef.current = true
 
     const token = await getToken()
-    if (!token) return
+    if (!token) {
+      isConnectingRef.current = false
+      return
+    }
 
     const ws = new WebSocket(
-      `${WS_BASE}/api/v1/chat/ws/${activeSessionId}?token=${token}`
+      `${WS_BASE}/api/v1/chat/ws/${initialSessionIdRef.current}?token=${token}`
     )
     wsRef.current = ws
 
     ws.onopen = () => {
+      isConnectingRef.current = false
       setIsConnected(true)
       // Keepalive ping every 25s
       pingRef.current = setInterval(() => {
@@ -81,17 +94,21 @@ export function useChat(sessionId?: string) {
     }
 
     ws.onerror = () => {
+      isConnectingRef.current = false
       setIsConnected(false)
       toast.error('Chat connection error. Reconnecting…')
     }
 
     ws.onclose = () => {
+      isConnectingRef.current = false
       setIsConnected(false)
       if (pingRef.current) clearInterval(pingRef.current)
       // Auto-reconnect after 3s
-      setTimeout(() => connect(), 3_000)
+      if (isMountedRef.current) {
+        setTimeout(() => connect(), 3_000)
+      }
     }
-  }, [activeSessionId, getToken, setCurrentMood])
+  }, [getToken, setCurrentMood])
 
   useEffect(() => {
     connect()

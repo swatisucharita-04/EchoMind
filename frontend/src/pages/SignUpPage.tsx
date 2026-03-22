@@ -12,7 +12,7 @@ export default function SignUpPage() {
           path="/sign-up"
           routing="path"
           signInUrl="/sign-in"
-          afterSignUpUrl="/dashboard"
+          fallbackRedirectUrl="/dashboard"
           appearance={{
             variables: { colorPrimary: '#4f5eff', borderRadius: '12px' },
           }}

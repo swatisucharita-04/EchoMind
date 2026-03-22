@@ -64,10 +64,10 @@ export default function Sidebar() {
             title={!sidebarOpen ? label : undefined}
             className={({ isActive }) =>
               `flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-sm font-medium
-               transition-colors duration-100 relative group
+               transition-all duration-200 relative group hover:translate-x-1
                ${isActive
-                ? 'nav-active'
-                : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-white'
+                ? 'nav-active shadow-[0_0_15px_rgba(139,92,246,0.15)] dark:shadow-[0_0_15px_rgba(139,92,246,0.05)]'
+                : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100/50 dark:hover:bg-gray-800/50 hover:text-gray-900 dark:hover:text-white'
               }`
             }
           >

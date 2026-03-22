@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useAuth } from '@clerk/clerk-react'
-import { Brain, MessageCircle, BarChart3, Music, BookOpen, Mic, ArrowRight, Star, Zap, Heart } from 'lucide-react'
+import { Brain, MessageCircle, BarChart3, Music, BookOpen, Mic, ArrowRight, Star, Zap, Heart, Shield, Lock, EyeOff } from 'lucide-react'
 import { motion } from 'framer-motion'
 
 const FEATURES = [
@@ -65,24 +65,8 @@ export default function LandingPage() {
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950 overflow-x-hidden">
-      {/* ── Animated background orbs ── */}
-      <div className="fixed inset-0 pointer-events-none select-none overflow-hidden z-0">
-        <motion.div
-          animate={{ x: [0, 40, 0], y: [0, -30, 0], scale: [1, 1.1, 1] }}
-          transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute -top-48 -left-48 w-[36rem] h-[36rem] rounded-full bg-gradient-to-br from-brand-400/20 to-violet-400/15 blur-3xl"
-        />
-        <motion.div
-          animate={{ x: [0, -40, 0], y: [0, 40, 0], scale: [1, 0.9, 1] }}
-          transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut', delay: 3 }}
-          className="absolute -bottom-48 -right-48 w-[40rem] h-[40rem] rounded-full bg-gradient-to-br from-sky-400/15 to-emerald-400/10 blur-3xl"
-        />
-        <motion.div
-          animate={{ x: [0, 20, -20, 0], y: [0, -20, 10, 0] }}
-          transition={{ duration: 22, repeat: Infinity, ease: 'easeInOut', delay: 6 }}
-          className="absolute top-1/3 left-1/2 w-80 h-80 rounded-full bg-gradient-to-br from-pink-400/10 to-amber-400/10 blur-3xl"
-        />
-      </div>
+      {/* ── Animated background ── */}
+      <div className="mesh-bg" />
 
       {/* ── Navbar ── */}
       <nav className="sticky top-0 z-50 flex items-center justify-between px-6 md:px-10 py-4 max-w-7xl mx-auto">
@@ -121,35 +105,34 @@ export default function LandingPage() {
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
-            transition={{ delay: 0.1 }}
-            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-brand-200 dark:border-brand-700 bg-brand-50 dark:bg-brand-900/30 text-brand-600 dark:text-brand-400 text-xs font-semibold"
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-gray-200 dark:border-white/10 bg-white/50 dark:bg-white/5 backdrop-blur-sm text-gray-600 dark:text-gray-300 text-xs font-medium"
           >
-            <Zap className="w-3.5 h-3.5" />
-            Powered by Gemini AI + Murf Voice
+            <Zap className="w-3.5 h-3.5 text-brand-500" />
+            Powered by secure AI
           </motion.div>
 
           {/* Headline */}
           <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black text-gray-900 dark:text-white leading-[1.1] tracking-tight">
-            Your AI mental
+            A safe space for
             <br />
-            <span className="gradient-text">wellness companion</span>
+            <span className="gradient-text">your mind.</span>
           </h1>
 
           <p className="text-lg md:text-xl text-gray-500 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed">
-            EchoMind listens, understands your mood, and helps you build healthier emotional
-            habits — through AI chat, smart journaling, and personalised music.
+            Navigate your feelings without judgment. Talk freely, track insights, and find your center with AI that actually listens.
           </p>
 
           {/* CTA buttons */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
               <Link to="/sign-up" className="btn-primary px-8 py-3.5 text-base rounded-2xl">
-                Start your journey free <ArrowRight className="w-5 h-5" />
+                Start feeling better today <ArrowRight className="w-5 h-5" />
               </Link>
             </motion.div>
             <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
               <Link to="/sign-in" className="btn-outline px-8 py-3.5 text-base rounded-2xl">
-                I have an account
+                Log in
               </Link>
             </motion.div>
           </div>
@@ -167,40 +150,78 @@ export default function LandingPage() {
           </div>
         </motion.div>
 
-        {/* Hero card preview */}
+        {/* Hero floating chatbot preview */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4, duration: 0.8 }}
+          animate={{ opacity: 1, y: [0, -10, 0] }}
+          transition={{ 
+            opacity: { delay: 0.4, duration: 0.8 },
+            y: { delay: 0.4, duration: 6, repeat: Infinity, ease: "easeInOut" }
+          }}
           className="mt-16 max-w-2xl mx-auto"
         >
-          <div className="glass-card p-6 text-left shadow-2xl">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-brand-400 to-violet-500 flex items-center justify-center text-xl">🧠</div>
+          <div className="glass-card p-6 text-left shadow-2xl relative overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent pointer-events-none" />
+            <div className="flex items-center gap-3 mb-6 relative z-10">
+              <div className="w-10 h-10 rounded-full bg-gradient-to-br from-brand-400 to-violet-500 flex items-center justify-center text-xl shadow-glow-brand">🧠</div>
               <div>
                 <p className="text-sm font-semibold text-gray-900 dark:text-white">EchoMind</p>
-                <p className="text-xs text-emerald-500 flex items-center gap-1"><span className="w-1.5 h-1.5 bg-emerald-500 rounded-full" /> AI Active</p>
+                <p className="text-xs text-emerald-500 flex items-center gap-1">
+                  <span className="w-1.5 h-1.5 bg-emerald-500 rounded-full" /> Active
+                </p>
               </div>
-              <div className="ml-auto">
-                <span className="px-2.5 py-1 rounded-full text-[10px] font-semibold bg-amber-50 dark:bg-amber-900/30 text-amber-600 dark:text-amber-400 border border-amber-200 dark:border-amber-700">
-                  😊 Happy detected
+              <motion.div 
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 1.5, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                className="ml-auto"
+              >
+                <span className="px-3 py-1.5 rounded-full text-[10px] font-semibold bg-white/40 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 border border-blue-200/50 dark:border-blue-700 backdrop-blur-md">
+                  🫂 Overwhelmed detected
                 </span>
-              </div>
+              </motion.div>
             </div>
-            <div className="space-y-3">
-              <div className="flex justify-end">
-                <div className="bg-brand-500 text-white text-sm px-4 py-2.5 rounded-2xl rounded-tr-sm max-w-xs">
-                  I feel really happy today! Got great news at work 🎉
+            
+            <div className="space-y-4 relative z-10">
+              <motion.div 
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.8, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                className="flex justify-end"
+              >
+                <div className="bg-brand-500 text-white text-sm px-4 py-3 rounded-2xl rounded-tr-sm max-w-sm shadow-md">
+                  I just feel so overwhelmed with everything today.
                 </div>
-              </div>
-              <div className="flex gap-2 items-end">
-                <div className="bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-sm px-4 py-2.5 rounded-2xl rounded-tl-sm max-w-xs">
-                  That's wonderful! 🌟 Your positive energy is contagious. Here's a quote to celebrate this moment with you...
+              </motion.div>
+              
+              <motion.div 
+                initial={{ opacity: 0, x: -20, y: 10 }}
+                animate={{ opacity: 1, x: 0, y: 0 }}
+                transition={{ delay: 1.8, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                className="flex gap-2 items-end"
+              >
+                <div className="bg-white/70 dark:bg-gray-800/60 backdrop-blur-md text-gray-800 dark:text-gray-200 text-sm px-4 py-3 rounded-2xl rounded-tl-sm max-w-sm shadow-sm border border-white/20 dark:border-white/5">
+                  I hear you. It’s completely okay to feel that way right now. Let's take a deep breath together. What's the heaviest thing on your mind?
                 </div>
-              </div>
+              </motion.div>
             </div>
           </div>
         </motion.div>
+      </section>
+
+      {/* ── Trust Banner ── */}
+      <section className="relative z-10 max-w-4xl mx-auto px-6 pb-20">
+        <div className="flex flex-wrap justify-center gap-8 md:gap-14 py-8 border-y border-gray-200/50 dark:border-white/10 opacity-70">
+          <div className="flex items-center gap-2 text-sm font-medium text-gray-600 dark:text-gray-300">
+            <Lock className="w-4 h-4 text-gray-400" /> End-to-end Secure
+          </div>
+          <div className="flex items-center gap-2 text-sm font-medium text-gray-600 dark:text-gray-300">
+            <EyeOff className="w-4 h-4 text-gray-400" /> 100% Private
+          </div>
+          <div className="flex items-center gap-2 text-sm font-medium text-gray-600 dark:text-gray-300">
+            <Shield className="w-4 h-4 text-gray-400" /> No Judgement
+          </div>
+        </div>
       </section>
 
       {/* ── How it works ── */}
@@ -246,8 +267,8 @@ export default function LandingPage() {
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.08 }}
-              whileHover={{ y: -5 }}
+              transition={{ delay: i * 0.08, duration: 0.5 }}
+              whileHover={{ scale: 1.02, y: -4, transition: { duration: 0.2, delay: 0 } }}
               className="glass-card p-6 group cursor-default"
             >
               <div className={`w-11 h-11 rounded-xl ${bg} flex items-center justify-center mb-4`}>
@@ -276,8 +297,9 @@ export default function LandingPage() {
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              className="glass-card p-6"
+              transition={{ delay: i * 0.1, duration: 0.5 }}
+              whileHover={{ scale: 1.02, y: -4, transition: { duration: 0.2, delay: 0 } }}
+              className="glass-card p-6 group cursor-default"
             >
               <div className="flex gap-1 mb-3">
                 {[...Array(5)].map((_, j) => (
@@ -304,12 +326,12 @@ export default function LandingPage() {
         >
           <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(255,255,255,0.15),transparent_60%)]" />
           <Heart className="w-10 h-10 mx-auto mb-5 opacity-80" />
-          <h2 className="text-3xl md:text-4xl font-black mb-4">Start your wellness journey today</h2>
+          <h2 className="text-3xl md:text-4xl font-black mb-4">Ready to feel better?</h2>
           <p className="text-brand-100 text-lg mb-8 max-w-xl mx-auto">
             Join thousands building healthier emotional habits with AI-powered guidance.
           </p>
           <Link to="/sign-up" className="inline-flex items-center gap-2 px-8 py-4 bg-white text-brand-600 font-bold rounded-2xl hover:bg-brand-50 transition-colors shadow-lg text-base">
-            Get started — it's free <ArrowRight className="w-5 h-5" />
+            Get started for free <ArrowRight className="w-5 h-5" />
           </Link>
         </motion.div>
       </section>

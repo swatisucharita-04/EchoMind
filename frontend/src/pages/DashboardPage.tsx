@@ -11,10 +11,21 @@ import { Link } from 'react-router-dom'
 import { useAuthStore } from '@/store/authStore'
 import { useUIStore } from '@/store/uiStore'
 
-function greeting(name?: string | null) {
+function greeting(name?: string | null, currentMood?: string | null) {
   const h = new Date().getHours()
   const t = h < 12 ? 'morning' : h < 17 ? 'afternoon' : 'evening'
-  return name ? `Good ${t}, ${name}` : `Good ${t}`
+  const base = name ? `Good ${t}, ${name}` : `Good ${t}`
+
+  if (!currentMood) return { title: `${base} 👋`, sub: new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' }) }
+  
+  const moodTexts: Record<string, string> = {
+    happy: "You're feeling happy today 😊 Let's build on that momentum.",
+    relaxed: "You're feeling relaxed 😌 Enjoy the calm.",
+    sad: "You're feeling a bit down 💙 Take it easy today, we're here for you.",
+    stressed: "You're feeling stressed 😰 Remember to take a deep breath.",
+    neutral: "A steady day is a good day 😐 You're doing great."
+  }
+  return { title: `${base} 👋`, sub: moodTexts[currentMood] || 'Ready for a great day?' }
 }
 
 export default function DashboardPage() {
@@ -60,10 +71,10 @@ export default function DashboardPage() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-xl font-bold text-gray-900 dark:text-white">
-            {greeting(appUser?.display_name?.split(' ')[0])} 👋
+            {greeting(appUser?.display_name?.split(' ')[0], currentMood).title}
           </h1>
-          <p className="text-sm text-gray-400 dark:text-gray-500 mt-0.5">
-            {new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}
+          <p className="text-sm font-medium text-gray-500 dark:text-gray-400 mt-1">
+            {greeting(appUser?.display_name?.split(' ')[0], currentMood).sub}
           </p>
         </div>
         <Link to="/dashboard" className="btn-primary gap-1.5">
@@ -95,10 +106,11 @@ export default function DashboardPage() {
               ? <div className="skeleton h-44 rounded-xl" />
               : moodHistory.length === 0
                 ? (
-                  <div className="h-44 flex flex-col items-center justify-center gap-2 text-center">
-                    <span className="text-3xl">📈</span>
-                    <p className="text-sm font-medium text-gray-600 dark:text-gray-400">No data yet</p>
-                    <p className="text-xs text-gray-400">Log your first mood to start seeing trends</p>
+                  <div className="h-44 flex flex-col items-center justify-center gap-2 text-center relative overflow-hidden rounded-xl border border-gray-100 dark:border-white/5">
+                    <div className="absolute inset-0 bg-gradient-to-r from-brand-500/5 to-violet-500/5 blur-xl" />
+                    <span className="text-3xl relative z-10">📊</span>
+                    <p className="text-sm font-medium text-gray-800 dark:text-gray-200 relative z-10">Start tracking your mood to unlock insights</p>
+                    <p className="text-xs text-gray-500 dark:text-gray-400 relative z-10 max-w-[200px]">Log your daily vibes to see how your emotions trend over time</p>
                   </div>
                 )
                 : <MoodChart data={analytics?.weekly_trend ?? []} />
