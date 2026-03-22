@@ -1,6 +1,16 @@
-# EchoMind — Production Setup & Deployment Guide
+<div align="center">
+  <h1>🧠 EchoMind</h1>
+  <p><strong>A premium, AI-powered mental wellness assistant.</strong></p>
+  <p>EchoMind combines intelligent journaling, real-time voice/text AI chat, mood analytics, and personalized music therapy into one calming, immersive digital space.</p>
+</div>
 
-## Tech Stack
+## ✨ Key Features
+- **Premium UI & UX**: Gentle animated mesh gradients, soft glassmorphism, responsive Framer Motion micro-interactions, and a modern aesthetic inspired by top wellness apps.
+- **AI-Powered Insights**: Real-time WebSocket conversations with Gemini 2.5 Flash, providing dynamic insights on every journal entry you save.
+- **Robust Analytics**: Track 30-day mood distributions and weekly trends through interactive Recharts elements.
+- **Rock-Solid Foundation**: Asynchronous FastAPI powered by Supabase PostgreSQL, protected by Clerk JWTs, and backed by a comprehensive `pytest` test suite.
+
+## 🛠️ Tech Stack
 | Layer       | Technology                            |
 |-------------|---------------------------------------|
 | Frontend    | React 18 + Vite + TailwindCSS         |
@@ -109,6 +119,9 @@ alembic upgrade head
 
 # Start dev server
 uvicorn app.main:app --reload --port 8000
+
+# Run comprehensive test suite
+pytest -v
 ```
 
 API docs available at: `http://localhost:8000/docs`
