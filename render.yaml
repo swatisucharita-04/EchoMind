@@ -1,0 +1,46 @@
+services:
+  - type: web
+    name: echomind-api
+    runtime: python
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_VERSION
+        value: 1.0.0
+      - key: DATABASE_URL
+        fromDatabase:
+          name: echomind-db
+          property: connectionString
+      - key: ALLOWED_ORIGINS
+        sync: false   # Set this in Render dashboard after Vercel deploy
+      - key: CLERK_SECRET_KEY
+        sync: false
+      - key: CLERK_JWKS_URL
+        sync: false
+      - key: GOOGLE_API_KEY
+        sync: false
+      - key: MURF_API_KEY
+        sync: false
+      - key: MURF_VOICE_ID
+        value: en-US-natalie
+      - key: SPOTIFY_CLIENT_ID
+        sync: false
+      - key: SPOTIFY_CLIENT_SECRET
+        sync: false
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_ANON_KEY
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+    healthCheckPath: /health
+    autoDeploy: true
+
+databases:
+  - name: echomind-db
+    databaseName: echomind
+    user: echomind
+    plan: free
