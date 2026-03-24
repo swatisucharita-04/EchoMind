@@ -1,6 +1,7 @@
 <div align="center">
   <h1>🧠 EchoMind</h1>
   <p><strong>A premium, AI-powered mental wellness assistant.</strong></p>
+  <p>🌐 <strong>Live Demo:</strong> <a href="https://echo-mind-frontend-theta.vercel.app/">https://echo-mind-frontend-theta.vercel.app/</a></p>
   <p>EchoMind combines intelligent journaling, real-time voice/text AI chat, mood analytics, and personalized music therapy into one calming, immersive digital space.</p>
 </div>
 
